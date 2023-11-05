@@ -8,6 +8,13 @@ def get_duck_image_url():
     data = res.json()
     return data['url']
 
+def passw():
+    elements = "ABCDEFGHIKLMNOPQRSTVXYZabcdefghiklmnopqrstvxyz0123456789+-/*!&$#?=@<>"
+    passwor = ""
+    for i in range(20):
+        passwor += random.choice(elements)
+    return passwor
+
 facts_list = [
     'Большинство людей, страдающих технологической зависимостью, испытывают сильный стресс, когда они находятся вне зоны покрытия сети или не могут использовать свои устройства.',
     'Согласно исследованию, проведенному в 2018 году, более 50% людей в возрасте от 18 до 34 лет считают себя зависимыми от своих смартфонов.',
@@ -24,18 +31,23 @@ facts_list = [
     ]
 
 app = Flask(__name__)
-
 @app.route("/")
 def helo():
-    return f'<h1><p>Привет! Здесь ты можешь узнать пару интересных фактов о технологических зависимостях!</p><p><a href="/random_fact">Посмотреть случайный факт!</a></p><p><a href="/random_img">Посмотреть случайную картинку!</a></p></h1>'
+    return f'<h1><p>Привет! Здесь ты можешь узнать пару интересных фактов о технологических зависимостях!</p><p><a href="/random_fact">Посмотреть случайный факт!</a></p><p><a href="/random_img">Посмотреть случайную картинку!</a></p><p><a href="/random_pas">Посмотреть случайный пароль!</a></p></h1>'
+
 
 @app.route("/random_fact")
 def fact():
-    return f'<h1><p>Привет! Здесь ты можешь узнать пару интересных фактов о технологических зависимостях!</p><p>{random.choice(facts_list)}</p><p><a href="/random_img">Посмотреть случайную картинку!</a></p></h1>'
+    return f'<h1><p>Привет! Здесь ты можешь узнать пару интересных фактов о технологических зависимостях!</p><p>{random.choice(facts_list)}</p><p><a href="/random_img">Посмотреть случайную картинку!</a></p><p><a href="/random_pas">Посмотреть случайный пароль!</a></p></h1>'
 
 @app.route("/random_img")
 def img():
     image_url = get_duck_image_url()
-    return f'<h1><p>Привет! Здесь ты можешь узнать пару интересных фактов о технологических зависимостях!</p><p><a href="/random_fact">Посмотреть случайный факт!</a></p><p><img src="{image_url}" width="500" height="500"/></p></h1>'
+    return f'<h1><p>Привет! Здесь ты можешь узнать пару интересных фактов о технологических зависимостях!</p><p><a href="/random_fact">Посмотреть случайный факт!</a></p><p><img src="{image_url}" width="500" height="500"/></p><p><a href="/random_pas">Посмотреть случайный пароль!</a></p></h1>'
+
+@app.route("/random_pas")
+def pas():
+    password = passw()
+    return f'<h1><p>Привет! Здесь ты можешь узнать пару интересных фактов о технологических зависимостях!</p><p><a href="/random_fact">Посмотреть случайный факт!</a></p><p><a href="/random_img">Посмотреть случайную картинку!</a></p><p>{password}</p></h1>'
 
 app.run(debug=True)
